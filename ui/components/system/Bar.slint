@@ -1,0 +1,122 @@
+//顶部状态栏
+import { BarGlobal } from "../../model/system/System_global.slint";
+import { FFButton } from "../../widgets/FFButton.slint";
+import { FFTheme,Theme } from "../../Theme.slint";
+
+component Bar inherits Rectangle{
+    
+    property <bool> drag-area-pressed: false;
+    property <length> drag-area-down-x: 0;
+    property <length> drag-area-down-y: 0;
+    in property <string> title;
+
+    in-out property <Theme> theme: FFTheme.theme;
+
+    area := TouchArea{
+        moved => {
+            BarGlobal.move((self.mouse-x - drag-area-down-x) / 1px,(self.mouse-y - drag-area-down-y) / 1px);
+        }
+        pointer-event(ev) => {
+            drag-area-pressed = ev.kind == PointerEventKind.down;
+            drag-area-down-x = self.mouse-x;
+            drag-area-down-y = self.mouse-y;
+        }
+        mouse-cursor: MouseCursor.move;
+    }
+
+    Rectangle {
+        height: 40px;
+        background: theme.bar-background-color;
+        border-radius: 4px;
+        drop-shadow-color: theme.bar-shadow-color;
+        drop-shadow-offset-x: 0px;
+        drop-shadow-offset-y: 3px;
+        drop-shadow-blur: 5px;
+
+        HorizontalLayout {
+            alignment: LayoutAlignment.space-between;
+            Rectangle {
+                width: 120px;
+                height: 40px;
+                HorizontalLayout {
+                    alignment: LayoutAlignment.start;
+                    Rectangle {
+                        width: 40px;
+                        height: 40px;
+                        Image {
+                            width: 30px;
+                            height: 30px;
+                            source: @image-url("../../assets/icon/icon.svg");
+                        }
+                    }
+                    
+                }
+                
+            }
+            Rectangle {
+                width: 120px;
+                height: 40px;
+                Text {
+                    height: 40px;
+                    text: title;
+                    font-size: 15px;
+                    color: theme.bar-text-color;
+                    vertical-alignment: TextVerticalAlignment.center;
+                }
+            }
+            Rectangle {
+                width: 120px;
+                HorizontalLayout {
+                    alignment: LayoutAlignment.end;
+                    FFButton { 
+                        ff-width: 40px;
+                        ff-height: 40px;
+                        ff-drop-shadow-blur: 0px;
+                        ff-drop-shadow-offset-x: 0px;
+                        ff-drop-shadow-offset-y: 0px;
+                        ff-border-radius: 0px;
+                        theme: FFTheme.theme.grey-button;
+                        button-name: "—";
+                        clicked => {
+                            BarGlobal.min-win();
+                        }
+                    }
+                    FFButton { 
+                        ff-width: 40px;
+                        ff-height: 40px;
+                        ff-drop-shadow-blur: 0px;
+                        ff-drop-shadow-offset-x: 0px;
+                        ff-drop-shadow-offset-y: 0px;
+                        ff-border-radius: 0px;
+                        theme: FFTheme.theme.grey-button;
+                        button-name: "口";
+                        clicked => {
+                            BarGlobal.max-win();
+                        }
+                    }
+                    FFButton { 
+                        ff-width: 40px;
+                        ff-height: 40px;
+                        ff-drop-shadow-blur: 0px;
+                        ff-drop-shadow-offset-x: 0px;
+                        ff-drop-shadow-offset-y: 0px;
+                        ff-border-radius: 0px;
+                        theme: FFTheme.theme.grey-button;
+                        button-name: "X";
+                        clicked => {
+                            BarGlobal.close();
+                        }
+                    }
+                }
+                
+            }
+        }
+
+    }
+
+}
+
+
+export { Bar }
+
+

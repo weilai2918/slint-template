@@ -1,0 +1,162 @@
+//自定义主题
+
+
+struct ButtonTheme {
+    //默认颜色背景色-文字颜色
+    background-color:color,
+    border-color:color,
+    text-color:color,
+
+    //鼠标悬浮背景色-文字颜色
+    hover-background-color:color,
+    hover-border-color:color,
+    hover-text-color:color,
+
+    //鼠标点击背景色-文字颜色
+    click-background-color:color,
+    click-border-color:color,
+    click-text-color:color,
+}
+
+struct Theme {
+
+    theme-name:string,
+
+    bar-background-color:color,
+    bar-text-color:color,
+    bar-shadow-color:color,
+
+    //主要按钮
+    primary-button:ButtonTheme,
+    //次要按钮
+    second-button:ButtonTheme,
+    //危险按钮
+    danger-button:ButtonTheme,
+    //灰色按钮
+    grey-button:ButtonTheme,
+    
+    content-background-color:color,
+    content-text-color:color,
+    hover-content-background-color:color
+
+}
+
+
+global FFTheme {
+
+    out property <Theme> bright: {
+        theme-name:"bright",
+
+        bar-background-color:Colors.white,
+        bar-text-color:Colors.black,
+        bar-shadow-color:#8f8c8c,
+
+        primary-button:{
+            background-color:#09b6fa,
+            border-color:#f6f9fa,
+            text-color:Colors.white,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:#5CD1FE,
+            hover-border-color:#fbfdfe,
+            hover-text-color:Colors.white,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:#d1eef9,
+            click-border-color:#f2f7f8,
+            click-text-color:Colors.white,
+        },
+
+        second-button:{
+            background-color:Colors.black,
+            text-color:Colors.white,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:#504f4f,
+            hover-text-color:Colors.white,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:#bbb9b9,
+            click-text-color:Colors.white,
+        },
+
+        grey-button:{
+            background-color:Colors.white,
+            text-color:Colors.black,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:#d1cfcf,
+            hover-text-color:Colors.black,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:#888787,
+            click-text-color:Colors.black,
+        },
+
+        content-background-color:Colors.white,
+        content-text-color:Colors.black,
+        hover-content-background-color:#c7c7c7
+    };
+
+    out property <Theme> dark: {
+        theme-name:"dark",
+        
+        bar-background-color:Colors.black,
+        bar-text-color:Colors.white,
+        bar-shadow-color:#f9f8f8,
+
+        primary-button:{
+            background-color:Colors.black,
+            border-color:Colors.white,
+            text-color:Colors.white,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:#686767,
+            hover-border-color:Colors.white,
+            hover-text-color:Colors.white,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:#c3c1c1,
+            click-border-color:Colors.white,
+            click-text-color:Colors.white,
+        },
+
+        second-button:{
+            background-color:Colors.red,
+            text-color:Colors.red,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:Colors.red,
+            hover-text-color:Colors.red,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:Colors.red,
+            click-text-color:Colors.red,
+        },
+
+        grey-button:{
+            background-color:Colors.black,
+            text-color:Colors.white,
+
+            //鼠标悬浮背景色-文字颜色
+            hover-background-color:#484747,
+            hover-text-color:Colors.white,
+
+            //鼠标点击背景色-文字颜色
+            click-background-color:#c8c4c4,
+            click-text-color:Colors.white,
+        },
+
+        content-background-color:Colors.black,
+        content-text-color:Colors.white,
+        hover-content-background-color:#414141
+    };
+
+    in-out property <Theme> theme: dark;
+
+    
+
+
+}
+
+export { FFTheme, ButtonTheme,Theme}
