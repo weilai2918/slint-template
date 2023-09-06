@@ -10,6 +10,8 @@ fn main() {
 
     let main = Main::new().expect("Form initialization failed!");
 
+    
+
     let main_weak = main.as_weak();
     system_window(main_weak);
 

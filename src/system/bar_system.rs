@@ -44,6 +44,12 @@ pub fn system_window(weak: Weak<Main>){
         if mx <= 8. && my <= 8. {
             win_weak_copy.window().set_size(WindowSize::Logical(LogicalSize::new(x + movex,y + movey)));
         }
+    });
+
+    let win_weak_copy = weak.clone().unwrap();
+    weak.unwrap().global::<BarGlobal>().on_right_menu(move ||{
+        println!("弹出右键菜单");
+        
     })
 }
 

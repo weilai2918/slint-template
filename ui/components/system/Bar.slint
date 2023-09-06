@@ -2,6 +2,7 @@
 import { BarGlobal } from "../../model/system/System_global.slint";
 import { FFButton } from "../../widgets/FFButton.slint";
 import { FFTheme,Theme } from "../../Theme.slint";
+import { Button } from "std-widgets.slint";
 
 component Bar inherits Rectangle{
     
@@ -10,19 +11,64 @@ component Bar inherits Rectangle{
     property <length> drag-area-down-y: 0;
     in property <string> title;
     in property <image> logo;
-
+    in-out property <bool> is-move: false;
+    in-out property <MouseCursor> barCursor: MouseCursor.default;
     in-out property <Theme> theme: FFTheme.theme;
+
+    
 
     area := TouchArea{
         moved => {
-            BarGlobal.move((self.mouse-x - drag-area-down-x) / 1px,(self.mouse-y - drag-area-down-y) / 1px);
+            if(is-move){
+                BarGlobal.move((self.mouse-x - drag-area-down-x) / 1px,(self.mouse-y - drag-area-down-y) / 1px);
+            }
         }
         pointer-event(ev) => {
             drag-area-pressed = ev.kind == PointerEventKind.down;
             drag-area-down-x = self.mouse-x;
             drag-area-down-y = self.mouse-y;
+            //如果右键点击，弹出菜单
+            if(ev.button == PointerEventButton.right && ev.kind == PointerEventKind.up){
+                BarGlobal.right-menu();
+                pwin.show();
+            }else if(ev.button == PointerEventButton.left && ev.kind == PointerEventKind.down){
+                is-move = true;
+                barCursor = MouseCursor.move;
+            }else if(ev.button == PointerEventButton.left && ev.kind == PointerEventKind.up){
+                is-move = false;
+                barCursor = MouseCursor.default;
+            }
         }
-        mouse-cursor: MouseCursor.move;
+        mouse-cursor: barCursor;
+    }
+
+    pwin := PopupWindow {
+        width: 100px;
+        height: 80px;
+        x: area.mouse-x;
+        y:area.mouse-y;
+        Rectangle {
+            width: 100px;
+            height: 80px;
+            border-width: 1px;
+            border-color: #F2F2F2;
+            background: Colors.black;
+            VerticalLayout {
+                FFButton {
+                    button-name: "亮主题";
+                    clicked => {
+                        FFTheme.theme = FFTheme.bright;
+                    }
+                }
+                FFButton {
+                    button-name: "暗主题";
+                    clicked => {
+                        FFTheme.theme = FFTheme.dark;
+                    }
+                }
+            }
+            
+        }
     }
 
     Rectangle {
