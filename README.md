@@ -9,6 +9,9 @@
 
 
 ### 主题切换
+
+![界面](images/switch.png)
+
 #### 亮色主题
 
 ![界面](images/bright.png)
