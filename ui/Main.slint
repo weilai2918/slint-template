@@ -6,6 +6,9 @@ export { BarGlobal }
 
 component Main inherits Window {
     
+    property <image> logo: @image-url("./assets/icon/icon.png");
+
+    icon: logo;
     min-width: 700px;
     min-height: 500px;
     no-frame: true;
@@ -17,6 +20,7 @@ component Main inherits Window {
             alignment: LayoutAlignment.start;
             Bar { 
                 title: "软件模版";
+                logo: logo;
             }
         }
     }

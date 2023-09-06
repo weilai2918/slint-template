@@ -9,6 +9,7 @@ component Bar inherits Rectangle{
     property <length> drag-area-down-x: 0;
     property <length> drag-area-down-y: 0;
     in property <string> title;
+    in property <image> logo;
 
     in-out property <Theme> theme: FFTheme.theme;
 
@@ -46,7 +47,7 @@ component Bar inherits Rectangle{
                         Image {
                             width: 30px;
                             height: 30px;
-                            source: @image-url("../../assets/icon/icon.svg");
+                            source: logo;
                         }
                     }
                     
