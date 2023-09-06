@@ -29,7 +29,6 @@ component Bar inherits Rectangle{
             drag-area-down-y = self.mouse-y;
             //如果右键点击，弹出菜单
             if(ev.button == PointerEventButton.right && ev.kind == PointerEventKind.up){
-                BarGlobal.right-menu();
                 pwin.show();
             }else if(ev.button == PointerEventButton.left && ev.kind == PointerEventKind.down){
                 is-move = true;
@@ -52,7 +51,6 @@ component Bar inherits Rectangle{
             height: 80px;
             border-width: 1px;
             border-color: #F2F2F2;
-            background: Colors.black;
             VerticalLayout {
                 FFButton {
                     button-name: "亮主题";
