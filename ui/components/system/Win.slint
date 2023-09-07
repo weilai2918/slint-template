@@ -17,13 +17,15 @@ component Win inherits Rectangle {
     property <length> record-mx;
     property <length> record-my;
 
+    background: transparent;
+
     Rectangle {
         width: win-width;
         height: win-height;
         background: theme.content-background-color;
         border-color: theme.content-border-color;
         border-width: 1px;
-        border-radius: 5px;
+        border-radius: 4px;
         area := TouchArea {
             moved => {
                 BarGlobal.size-win(record-width / 1px,record-height / 1px,(self.mouse-x - record-x) / 1px,(self.mouse-y - record-y) / 1px,record-mx /1px,record-my /1px)
@@ -42,11 +44,9 @@ component Win inherits Rectangle {
     }
 
     Rectangle {
-
         TouchArea {
             pointer-event(ev) => {
-                debug(self.x,self.y);
-                debug(self.mouse-x,self.mouse-y);
+                
             }
             mouse-cursor: MouseCursor.default;
         }

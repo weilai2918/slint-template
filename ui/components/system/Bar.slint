@@ -1,6 +1,6 @@
 //顶部状态栏
 import { BarGlobal,OperateEnum } from "../../model/system/System_global.slint";
-import { FFButton } from "../../widgets/FFButton.slint";
+import { FFButton,FFImageButton } from "../../widgets/FFButton.slint";
 import { FFTheme,Theme } from "../../Theme.slint";
 import { Button } from "std-widgets.slint";
 
@@ -15,7 +15,7 @@ component Bar inherits Rectangle{
     in-out property <MouseCursor> barCursor: MouseCursor.default;
     in-out property <Theme> theme: FFTheme.theme;
 
-    
+    background: transparent;
 
     area := TouchArea{
         moved => {
@@ -48,20 +48,26 @@ component Bar inherits Rectangle{
         y:area.mouse-y;
         Rectangle {
             width: 100px;
-            height: 80px;
+            height: 120px;
             border-width: 1px;
             border-color: #F2F2F2;
             VerticalLayout {
                 FFButton {
-                    button-name: "亮主题";
+                    button-name: "亮";
                     clicked => {
                         FFTheme.theme = FFTheme.bright;
                     }
                 }
                 FFButton {
-                    button-name: "暗主题";
+                    button-name: "暗";
                     clicked => {
                         FFTheme.theme = FFTheme.dark;
+                    }
+                }
+                FFButton {
+                    button-name: "透明";
+                    clicked => {
+                        FFTheme.theme = FFTheme.transparent;
                     }
                 }
             }
@@ -75,14 +81,15 @@ component Bar inherits Rectangle{
         border-radius: 4px;
         drop-shadow-color: theme.bar-shadow-color;
         drop-shadow-offset-x: 0px;
-        drop-shadow-offset-y: 3px;
-        drop-shadow-blur: 5px;
+        drop-shadow-offset-y: 1px;
+        drop-shadow-blur: 3px;
 
         HorizontalLayout {
             alignment: LayoutAlignment.space-between;
             Rectangle {
                 width: 120px;
                 height: 40px;
+                background: transparent;
                 HorizontalLayout {
                     alignment: LayoutAlignment.start;
                     Rectangle {
@@ -92,6 +99,7 @@ component Bar inherits Rectangle{
                             width: 30px;
                             height: 30px;
                             source: logo;
+                            colorize: theme.logo-color;
                         }
                     }
                     
@@ -101,19 +109,24 @@ component Bar inherits Rectangle{
             Rectangle {
                 width: 120px;
                 height: 40px;
+                background: transparent;
                 Text {
                     height: 40px;
                     text: title;
                     font-size: 15px;
                     color: theme.bar-text-color;
                     vertical-alignment: TextVerticalAlignment.center;
+                    font-weight: 800;
                 }
             }
             Rectangle {
                 width: 120px;
+                height: 40px;
+                background: transparent;
                 HorizontalLayout {
                     alignment: LayoutAlignment.end;
-                    FFButton { 
+                    FFImageButton { 
+                        button-image: @image-url("../../assets/bar/minimize.svg");
                         ff-width: 40px;
                         ff-height: 40px;
                         ff-drop-shadow-blur: 0px;
@@ -121,12 +134,12 @@ component Bar inherits Rectangle{
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
                         theme: FFTheme.theme.grey-button;
-                        button-name: "—";
                         clicked => {
                             BarGlobal.window-operate(OperateEnum.minimize);
                         }
                     }
-                    FFButton { 
+                    FFImageButton { 
+                        button-image: @image-url("../../assets/bar/maximize.svg");
                         ff-width: 40px;
                         ff-height: 40px;
                         ff-drop-shadow-blur: 0px;
@@ -134,12 +147,12 @@ component Bar inherits Rectangle{
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
                         theme: FFTheme.theme.grey-button;
-                        button-name: "口";
                         clicked => {
                             BarGlobal.window-operate(OperateEnum.maximize);
                         }
                     }
-                    FFButton { 
+                    FFImageButton { 
+                        button-image: @image-url("../../assets/bar/close1.svg");
                         ff-width: 40px;
                         ff-height: 40px;
                         ff-drop-shadow-blur: 0px;
@@ -147,7 +160,6 @@ component Bar inherits Rectangle{
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
                         theme: FFTheme.theme.grey-button;
-                        button-name: "X";
                         clicked => {
                             BarGlobal.window-operate(OperateEnum.close);
                         }
