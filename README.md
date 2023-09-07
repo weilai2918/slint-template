@@ -20,3 +20,8 @@
 #### 暗色主题
 
 ![界面](images/dark.png)
+
+
+#### 透明主题
+
+![界面](images/transparent.png)
