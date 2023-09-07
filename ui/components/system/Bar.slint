@@ -1,5 +1,5 @@
 //顶部状态栏
-import { BarGlobal } from "../../model/system/System_global.slint";
+import { BarGlobal,OperateEnum } from "../../model/system/System_global.slint";
 import { FFButton } from "../../widgets/FFButton.slint";
 import { FFTheme,Theme } from "../../Theme.slint";
 import { Button } from "std-widgets.slint";
@@ -123,7 +123,7 @@ component Bar inherits Rectangle{
                         theme: FFTheme.theme.grey-button;
                         button-name: "—";
                         clicked => {
-                            BarGlobal.min-win();
+                            BarGlobal.window-operate(OperateEnum.minimize);
                         }
                     }
                     FFButton { 
@@ -136,7 +136,7 @@ component Bar inherits Rectangle{
                         theme: FFTheme.theme.grey-button;
                         button-name: "口";
                         clicked => {
-                            BarGlobal.max-win();
+                            BarGlobal.window-operate(OperateEnum.maximize);
                         }
                     }
                     FFButton { 
@@ -149,7 +149,7 @@ component Bar inherits Rectangle{
                         theme: FFTheme.theme.grey-button;
                         button-name: "X";
                         clicked => {
-                            BarGlobal.close();
+                            BarGlobal.window-operate(OperateEnum.close);
                         }
                     }
                 }

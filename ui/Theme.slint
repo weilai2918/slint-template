@@ -25,6 +25,11 @@ struct Theme {
     bar-background-color:color,
     bar-text-color:color,
     bar-shadow-color:color,
+    content-background-color:color,
+    content-text-color:color,
+    content-border-color:color,
+    hover-content-background-color:color,
+
 
     //主要按钮
     primary-button:ButtonTheme,
@@ -35,9 +40,7 @@ struct Theme {
     //灰色按钮
     grey-button:ButtonTheme,
     
-    content-background-color:color,
-    content-text-color:color,
-    hover-content-background-color:color
+    
 
 }
 
@@ -50,6 +53,10 @@ global FFTheme {
         bar-background-color:Colors.white,
         bar-text-color:Colors.black,
         bar-shadow-color:#8f8c8c,
+        content-background-color:Colors.white,
+        content-border-color:#c1c1c1,
+        content-text-color:Colors.black,
+        hover-content-background-color:#c7c7c7,
 
         primary-button:{
             background-color:#09b6fa,
@@ -91,11 +98,9 @@ global FFTheme {
             //鼠标点击背景色-文字颜色
             click-background-color:#888787,
             click-text-color:Colors.black,
-        },
+        }
 
-        content-background-color:Colors.white,
-        content-text-color:Colors.black,
-        hover-content-background-color:#c7c7c7
+        
     };
 
     out property <Theme> dark: {
@@ -104,6 +109,10 @@ global FFTheme {
         bar-background-color:Colors.black,
         bar-text-color:Colors.white,
         bar-shadow-color:#f9f8f8,
+        content-background-color:Colors.black,
+        content-text-color:Colors.white,
+        content-border-color:#f6f5f5,
+        hover-content-background-color:#414141,
 
         primary-button:{
             background-color:Colors.black,
@@ -145,11 +154,9 @@ global FFTheme {
             //鼠标点击背景色-文字颜色
             click-background-color:#c8c4c4,
             click-text-color:Colors.white,
-        },
+        }
 
-        content-background-color:Colors.black,
-        content-text-color:Colors.white,
-        hover-content-background-color:#414141
+        
     };
 
     in-out property <Theme> theme: bright;

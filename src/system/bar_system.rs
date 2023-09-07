@@ -1,19 +1,38 @@
-use crate::{BarGlobal, Main};
+use crate::{BarGlobal, Main, OperateEnum};
 use i_slint_backend_winit::WinitWindowAccessor;
 use slint::{
     ComponentHandle, LogicalPosition, LogicalSize, Weak, WindowPosition::Logical, WindowSize,
 };
-
-use super::notify;
 
 pub fn system_window(weak: Weak<Main>) {
     let win = weak.unwrap();
     let win_weak = weak.clone().unwrap();
 
     //关闭程序
-    win.global::<BarGlobal>().on_close(move || {
-        let _ = win_weak.window().hide();
-    });
+    win.global::<BarGlobal>()
+        .on_window_operate(move |operate| match operate {
+            OperateEnum::Minimize => {
+                win_weak
+                    .window()
+                    .with_winit_window(|winit_window: &winit::window::Window| {
+                        winit_window.set_minimized(true);
+                    });
+            }
+            OperateEnum::Maximize => {
+                win_weak
+                    .window()
+                    .with_winit_window(|winit_window: &winit::window::Window| {
+                        if winit_window.is_maximized() {
+                            winit_window.set_maximized(false);
+                        } else {
+                            winit_window.set_maximized(true);
+                        }
+                    });
+            }
+            OperateEnum::Close => {
+                let _ = win_weak.window().hide();
+            }
+        });
 
     //移动窗体
     let win_weak = weak.clone().unwrap();
@@ -26,28 +45,6 @@ pub fn system_window(weak: Weak<Main>) {
             x: logical_pos.x + x,
             y: logical_pos.y + y,
         }));
-    });
-
-    let win_weak_copy = weak.clone().unwrap();
-    weak.unwrap().global::<BarGlobal>().on_min_win(move || {
-        notify("程序名称", "已经最小化啦", 2000);
-        win_weak_copy
-            .window()
-            .with_winit_window(|winit_window: &winit::window::Window| {
-                winit_window.set_minimized(true);
-            });
-    });
-    let win_weak_copy = weak.clone().unwrap();
-    weak.unwrap().global::<BarGlobal>().on_max_win(move || {
-        win_weak_copy
-            .window()
-            .with_winit_window(|winit_window: &winit::window::Window| {
-                if winit_window.is_maximized() {
-                    winit_window.set_maximized(false);
-                } else {
-                    winit_window.set_maximized(true);
-                }
-            });
     });
 
     let win_weak_copy = weak.clone().unwrap();

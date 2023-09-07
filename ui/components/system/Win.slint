@@ -21,7 +21,9 @@ component Win inherits Rectangle {
         width: win-width;
         height: win-height;
         background: theme.content-background-color;
-        border-radius: 4px;
+        border-color: theme.content-border-color;
+        border-width: 1px;
+        border-radius: 5px;
         area := TouchArea {
             moved => {
                 BarGlobal.size-win(record-width / 1px,record-height / 1px,(self.mouse-x - record-x) / 1px,(self.mouse-y - record-y) / 1px,record-mx /1px,record-my /1px)
@@ -49,8 +51,8 @@ component Win inherits Rectangle {
             mouse-cursor: MouseCursor.default;
         }
 
-        width: win-width - 5px;
-        height: win-height - 5px;
+        width: win-width - 4px;
+        height: win-height - 4px;
         background: theme.content-background-color;
         @children
     }
