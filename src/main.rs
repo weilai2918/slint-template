@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 
 mod model;
 mod system;
@@ -9,8 +10,6 @@ fn main() {
     let _ = slint::platform::set_platform(Box::new(i_slint_backend_winit::Backend::new()));
 
     let main = Main::new().expect("Form initialization failed!");
-
-    
 
     let main_weak = main.as_weak();
     system_window(main_weak);
