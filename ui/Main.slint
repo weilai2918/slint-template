@@ -11,7 +11,7 @@ component Main inherits Window {
     property <image> logo: @image-url("./assets/logo/logo.png");
 
     icon: logo;
-    //最小尺寸目前不支持失效，只有第一次启动起作用
+    //最小尺寸目前不支持，只有第一次启动起作用
     min-width: 800px;
     min-height: 600px;
     background: transparent;
@@ -23,11 +23,13 @@ component Main inherits Window {
         background: transparent;
         VerticalLayout {
             alignment: LayoutAlignment.start;
+            //标题栏
             Bar { 
                 background: transparent;
                 title: "软件模版";
                 logo: @image-url("./assets/logo/logo.svg");
             }
+            //内容
             Rectangle {
                 background: transparent;
                 VerticalLayout {
