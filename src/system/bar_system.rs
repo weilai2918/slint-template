@@ -23,7 +23,6 @@ pub fn system_window(weak: Weak<Main>) {
                 win_weak
                     .window()
                     .with_winit_window(|winit_window: &winit::window::Window| {
-                        winit_window.set_visible(false);
                         if winit_window.is_maximized() {
                             winit_window.set_maximized(false);
                         } else {
