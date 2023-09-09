@@ -15,7 +15,7 @@ use tray_icon::{
 
 pub fn run_main(main: Main){
     let icon = Icon::from_path(
-        "F:/rust/slint-template/ui/assets/tray/show.ico",
+        "F:/rust/slint-template/ui/assets/tray/theme.ico",
         Some((64, 64)),
     )
     .unwrap();
