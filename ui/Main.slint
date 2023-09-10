@@ -17,14 +17,17 @@ component Main inherits Window {
     background: transparent;
     no-frame: true;
 
+    property <length> ff-width: self.width;
+    property <length> ff-height: self.height;
+
     Win {
-        win-width: self.width;
-        win-height: self.height;
+        win-width: ff-width;
+        win-height: ff-height;
         background: transparent;
         VerticalLayout {
             alignment: LayoutAlignment.start;
             //标题栏
-            Bar { 
+            Bar {
                 background: transparent;
                 title: "软件模版";
                 logo: @image-url("./assets/logo/logo.svg");
@@ -36,6 +39,20 @@ component Main inherits Window {
                     alignment: LayoutAlignment.start;
                     
                 }
+                //弹窗
+                /*Rectangle {
+                    x: 0px;
+                    y: 0px;
+                    width: ff-width;
+                    height: ff-height;
+                    //background: Colors.pink;
+                    Rectangle {
+                        y: 50px;
+                        width: 100px;
+                        height: 100px;
+                        background: Colors.red;
+                    }
+                }*/
             }
         }
     }
