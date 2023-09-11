@@ -1,6 +1,8 @@
 mod bar_system;
 mod tray;
 mod notify;
+use std::env;
+
 pub use notify::_notify;
 pub use bar_system::system_window;
 use slint::ComponentHandle;
@@ -14,8 +16,11 @@ use tray_icon::{
 
 
 pub fn run_main(main: Main){
+
+    let object_dir = env!("CARGO_MANIFEST_DIR");
+
     let icon = Icon::from_path(
-        "F:/rust/slint-template/ui/assets/tray/theme.ico",
+        object_dir.to_string() + "/ui/assets/tray/theme.ico",
         Some((64, 64)),
     )
     .unwrap();
@@ -26,9 +31,9 @@ pub fn run_main(main: Main){
     let theme_tray_menu = Submenu::new("多级菜单",true);
     
 
-    let icon_light = tray_icon::menu::Icon::from_path("F:/rust/slint-template/ui/assets/tray/light.ico", Some((64,64))).expect("reload icon failed!!!");
-    let icon_dart = tray_icon::menu::Icon::from_path("F:/rust/slint-template/ui/assets/tray/dart.ico", Some((64,64))).expect("reload icon failed!!!");
-    let icon_transparent = tray_icon::menu::Icon::from_path("F:/rust/slint-template/ui/assets/tray/transparent.ico", Some((64,64))).expect("reload icon failed!!!");
+    let icon_light = tray_icon::menu::Icon::from_path(object_dir.to_string() + "/ui/assets/tray/light.ico", Some((64,64))).expect("reload icon failed!!!");
+    let icon_dart = tray_icon::menu::Icon::from_path(object_dir.to_string() + "/ui/assets/tray/dart.ico", Some((64,64))).expect("reload icon failed!!!");
+    let icon_transparent = tray_icon::menu::Icon::from_path(object_dir.to_string() + "/ui/assets/tray/transparent.ico", Some((64,64))).expect("reload icon failed!!!");
     let light_theme_menu = IconMenuItem::new("一", true, Some(icon_dart), None);
     let dart_theme_menu = IconMenuItem::new("二", true, Some(icon_light), None);
     let transparent_theme_menu = IconMenuItem::new("三", true, Some(icon_transparent), None);
