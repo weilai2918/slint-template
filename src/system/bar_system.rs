@@ -3,7 +3,7 @@ use i_slint_backend_winit::WinitWindowAccessor;
 use slint::{
     ComponentHandle, LogicalPosition, LogicalSize, Weak, WindowPosition::Logical, WindowSize,
 };
-
+use winit::{window::Fullscreen, monitor::MonitorHandle};
 
 pub fn system_window(weak: Weak<Main>) {
     let win = weak.unwrap();
@@ -11,7 +11,7 @@ pub fn system_window(weak: Weak<Main>) {
 
     //关闭程序
     win.global::<BarGlobal>()
-        .on_window_operate(move |operate| match operate {
+        .on_window_operate(move |operate,param: slint::SharedString| match operate {
             OperateEnum::Minimize => {
                 win_weak
                     .window()
@@ -36,6 +36,33 @@ pub fn system_window(weak: Weak<Main>) {
                     .with_winit_window(|winit_window: &winit::window::Window| {
                         winit_window.set_visible(false);
                     });
+            }
+            OperateEnum::Top => {
+                win_weak
+                    .window()
+                    .with_winit_window(|winit_window: &winit::window::Window| {
+                        if param == slint::SharedString::from("0"){
+                            winit_window.set_window_level(winit::window::WindowLevel::AlwaysOnTop);
+                        }else{
+                            winit_window.set_window_level(winit::window::WindowLevel::Normal);
+                        }
+                    });
+            },
+            OperateEnum::Full =>{
+                if param.eq(slint::SharedString::from("\u{1b}").as_str()){
+                    win_weak
+                    .window()
+                    .with_winit_window(|winit_window: &winit::window::Window| {
+                        winit_window.set_fullscreen(None);
+                    });
+                }else if param.eq(slint::SharedString::from("quanping").as_str()){
+                    win_weak
+                    .window()
+                    .with_winit_window(|winit_window: &winit::window::Window| {
+                        let monitor = winit_window.primary_monitor();
+                        winit_window.set_fullscreen(Some(Fullscreen::Borderless(monitor)));
+                    });
+                }
             }
         });
 

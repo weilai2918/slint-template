@@ -97,6 +97,8 @@ component FFImageButton inherits Rectangle{
     in property <length> ff-drop-shadow-offset-x: 2px;
 
     in property <length> ff-drop-shadow-offset-y: 2px;
+
+    in property <angle> ff-rotation-angle: 0deg;
     
     callback clicked();
 
@@ -136,6 +138,9 @@ component FFImageButton inherits Rectangle{
                 height: ff-height * 0.6;
                 source: button-image;
                 colorize:area.pressed?theme.click-text-color:area.has-hover?theme.hover-text-color:theme.text-color;
+                rotation-angle: ff-rotation-angle;
+                rotation-origin-x: ff-width * 0.6 / 2;
+                rotation-origin-y: ff-height * 0.6 / 2;
             }
         }
 

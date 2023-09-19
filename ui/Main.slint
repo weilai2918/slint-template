@@ -20,10 +20,24 @@ component Main inherits Window {
     property <length> ff-width: self.width;
     property <length> ff-height: self.height;
 
+    property <bool> is_bar: true;
+
+    
+
     Win {
         win-width: ff-width;
         win-height: ff-height;
         background: transparent;
+
+
+        FocusScope {
+            key-pressed(ke) => {
+                BarGlobal.window-operate(OperateEnum.full,ke.text);
+                is-bar = true;
+                EventResult.accept
+            }
+        }
+
         VerticalLayout {
             alignment: LayoutAlignment.start;
             //标题栏
@@ -31,6 +45,8 @@ component Main inherits Window {
                 background: transparent;
                 title: "软件模版";
                 logo: @image-url("./assets/logo/logo.svg");
+                is-bar <=> is-bar;
+                ff-visible: is-bar;
             }
             //内容
             Rectangle {

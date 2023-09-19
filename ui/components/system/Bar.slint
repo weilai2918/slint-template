@@ -14,8 +14,13 @@ component Bar inherits Rectangle{
     in-out property <bool> is-move: false;
     in-out property <MouseCursor> barCursor: MouseCursor.default;
     in-out property <Theme> theme: FFTheme.theme;
+    property <bool> is-top: false;
+
+    in-out property <bool> is_bar: true;
+    in-out property <bool> ff-visible: true;
 
     background: transparent;
+    visible: ff-visible;
 
     area := TouchArea{
         moved => {
@@ -70,6 +75,13 @@ component Bar inherits Rectangle{
                         FFTheme.theme = FFTheme.transparent;
                     }
                 }
+                FFButton {
+                    button-name: "全屏";
+                    clicked => {
+                        is_bar = false;
+                        BarGlobal.window-operate(OperateEnum.full,"quanping");
+                    }
+                }
             }
             
         }
@@ -77,7 +89,7 @@ component Bar inherits Rectangle{
 
     Rectangle {
         width: 100%;
-        height: 40px;
+        height: 35px;
         background: theme.bar-background-color;
         border-radius: 4px;
         drop-shadow-color: theme.bar-shadow-color;
@@ -88,14 +100,14 @@ component Bar inherits Rectangle{
         HorizontalLayout {
             alignment: LayoutAlignment.space-between;
             Rectangle {
-                width: 120px;
-                height: 40px;
+                width: 150px;
+                height: 35px;
                 background: transparent;
                 HorizontalLayout {
                     alignment: LayoutAlignment.start;
                     Rectangle {
-                        width: 40px;
-                        height: 40px;
+                        width: 35px;
+                        height: 35px;
                         Image {
                             width: 30px;
                             height: 30px;
@@ -103,16 +115,14 @@ component Bar inherits Rectangle{
                             colorize: theme.logo-color;
                         }
                     }
-                    
                 }
-                
             }
             Rectangle {
-                width: 120px;
-                height: 40px;
+                width: 150px;
+                height: 35px;
                 background: transparent;
                 Text {
-                    height: 40px;
+                    height: 35px;
                     text: title;
                     font-size: 15px;
                     color: theme.bar-text-color;
@@ -121,48 +131,70 @@ component Bar inherits Rectangle{
                 }
             }
             Rectangle {
-                width: 120px;
-                height: 40px;
+                width: 150px;
+                height: 35px;
                 background: transparent;
                 HorizontalLayout {
                     alignment: LayoutAlignment.end;
                     FFImageButton { 
-                        button-image: @image-url("../../assets/bar/minimize.svg");
-                        ff-width: 40px;
-                        ff-height: 40px;
+                        button-image: @image-url("../../assets/bar/top.svg");
+                        ff-width: 35px;
+                        ff-height: 35px;
                         ff-drop-shadow-blur: 0px;
                         ff-drop-shadow-offset-x: 0px;
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
+                        ff-rotation-angle: is-top?45deg:0deg;
                         theme: FFTheme.theme.grey-button;
                         clicked => {
-                            BarGlobal.window-operate(OperateEnum.minimize);
+                            //记录当前的状态，更换图标的尺寸
+                            if(is-top){
+                                is-top = false;
+                                BarGlobal.window-operate(OperateEnum.top,"1");
+                            }else{
+                                is-top = true;
+                                BarGlobal.window-operate(OperateEnum.top,"0");
+                            }
+                            
                         }
                     }
                     FFImageButton { 
-                        button-image: @image-url("../../assets/bar/maximize.svg");
-                        ff-width: 40px;
-                        ff-height: 40px;
+                        button-image: @image-url("../../assets/bar/minimize.svg");
+                        ff-width: 35px;
+                        ff-height: 35px;
                         ff-drop-shadow-blur: 0px;
                         ff-drop-shadow-offset-x: 0px;
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
                         theme: FFTheme.theme.grey-button;
                         clicked => {
-                            BarGlobal.window-operate(OperateEnum.maximize);
+                            BarGlobal.window-operate(OperateEnum.minimize,"0");
+                        }
+                    }
+                    FFImageButton {
+                        button-image: @image-url("../../assets/bar/maximize.svg");
+                        ff-width: 35px;
+                        ff-height: 35px;
+                        ff-drop-shadow-blur: 0px;
+                        ff-drop-shadow-offset-x: 0px;
+                        ff-drop-shadow-offset-y: 0px;
+                        ff-border-radius: 0px;
+                        theme: FFTheme.theme.grey-button;
+                        clicked => {
+                            BarGlobal.window-operate(OperateEnum.maximize,"0");
                         }
                     }
                     FFImageButton { 
                         button-image: @image-url("../../assets/bar/close1.svg");
-                        ff-width: 40px;
-                        ff-height: 40px;
+                        ff-width: 35px;
+                        ff-height: 35px;
                         ff-drop-shadow-blur: 0px;
                         ff-drop-shadow-offset-x: 0px;
                         ff-drop-shadow-offset-y: 0px;
                         ff-border-radius: 0px;
                         theme: FFTheme.theme.grey-button;
                         clicked => {
-                            BarGlobal.window-operate(OperateEnum.close);
+                            BarGlobal.window-operate(OperateEnum.close,"0");
                         }
                     }
                 }

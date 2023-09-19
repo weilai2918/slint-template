@@ -1,7 +1,9 @@
 enum OperateEnum{
+    top,
     maximize,
     minimize,
-    close
+    close,
+    full
 }
 
 
@@ -9,7 +11,7 @@ global BarGlobal {
     
     callback move(float,float);
 
-    callback window-operate(OperateEnum);
+    callback window-operate(OperateEnum,string);
 
     callback size-win(float,float,float,float,float,float);
 }
